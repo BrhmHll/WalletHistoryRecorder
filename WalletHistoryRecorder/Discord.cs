@@ -4,17 +4,14 @@ using System;
 using System.IO;
 using System.Text;
 
-//Discord Webhook Script for Unity
-//Morgan Skillicorn @MorganSkilly
-//https://morgan.games/
 
 namespace WalletHistoryRecorder
 {
     public class Discord
     {
-        private static string defaultWebhook = "https://discord.com/api/webhooks/904080616784527441/YGluOhVDZJku5cOJWzVSZl3v_kFD0S5zgxv-Q2QRvW1Nnh4GuQ31p8lgOzYTRpM1uFdP";
-        private static string defaultUserAgent = "Unity Engine via MorganSkilly Discord Webhook System";
-        private static string defaultUserName = "Wallet Log Backup Bot";
+        private static string defaultWebhook = "https://discord.com/api/webhooks/xxxxxxxxxxxxxx";
+        private static string defaultUserAgent = "";
+        private static string defaultUserName = "Wallet Logger Bot";
 
         public static string SendFile(
         string mssgBody,
@@ -51,8 +48,24 @@ namespace WalletHistoryRecorder
             return fullResponse;
         }
 
+        public static string Send(string mssgBody)
+        {
+            // Generate post objects
+            Dictionary<string, object> postParameters = new Dictionary<string, object>();
+            postParameters.Add("username", defaultUserName);
+            postParameters.Add("content", mssgBody);
 
+            // Create request and receive response
+            HttpWebResponse webResponse = FormUpload.MultipartFormDataPost(defaultWebhook, defaultUserAgent, postParameters);
 
+            // Process response
+            StreamReader responseReader = new StreamReader(webResponse.GetResponseStream());
+            string fullResponse = responseReader.ReadToEnd();
+            webResponse.Close();
+
+            //return string with response
+            return fullResponse;
+        }
     }
 
     public static class FormUpload //formats data as a multi part form to allow for file sharing
