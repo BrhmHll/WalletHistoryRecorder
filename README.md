@@ -1,5 +1,7 @@
 <h2>Metamask Wallet History Logger to Discord<h2/>
-<br>
+<hr>
+  <br>
+  <hr>
 It converts metamask wallet log records of Chrome, Opera, Opera Gx browsers into encrypted zip files and sends them to the desired discord server.
   
   <hr>
